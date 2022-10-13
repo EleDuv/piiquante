@@ -1,6 +1,7 @@
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
 
+// création of a sauce by user
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
@@ -20,6 +21,7 @@ exports.createSauce = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+//user id getting ONE sauce
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({
     _id: req.params.id,
@@ -34,6 +36,7 @@ exports.getOneSauce = (req, res, next) => {
     });
 };
 
+// User is updating a sauce he created
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file
     ? {
@@ -63,6 +66,7 @@ exports.modifySauce = (req, res, next) => {
     });
 };
 
+// User is deleting one of his sauces
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
@@ -84,6 +88,7 @@ exports.deleteSauce = (req, res, next) => {
     });
 };
 
+// User is getting ALL sauces
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
     .then((sauces) => {
@@ -94,6 +99,7 @@ exports.getAllSauces = (req, res, next) => {
     });
 };
 
+// User is liking / disliking a sauce
 exports.likeSauce = (req, res, next) => {
   const sauceId = req.params.id;
   const userId = req.body.userId;
